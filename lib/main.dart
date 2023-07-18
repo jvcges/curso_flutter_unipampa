@@ -1,4 +1,6 @@
+import 'package:curso_flutter_unipampa/provider/user_github_provider.dart';
 import 'package:curso_flutter_unipampa/provider/user_provider.dart';
+import 'package:curso_flutter_unipampa/views/user_github_list.dart';
 import 'package:curso_flutter_unipampa/views/user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => UserProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => UserGithubProvider(),
+        )
       ],
       child: MaterialApp(
         title: 'Curso Flutter Unipampa',
@@ -25,7 +30,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: const UserList(),
+        home: const UserGithubList(),
       ),
     );
   }
