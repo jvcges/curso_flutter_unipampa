@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:curso_flutter_unipampa/provider/user_github_provider.dart';
@@ -21,6 +22,7 @@ class _UserGithubListState extends State<UserGithubList> {
   List<UserGithubDto> usersList = [];
   final baseUrl = 'https://api.github.com/users';
   final _nameController = TextEditingController();
+  Timer? _searchTimer;
 
   @override
   void initState() {
@@ -66,9 +68,14 @@ class _UserGithubListState extends State<UserGithubList> {
           border: OutlineInputBorder(),
         ),
         onChanged: (value) {
-          if (value.length > 3) {
-            getUserByName(value);
-          }
+          _searchTimer?.cancel();
+          _searchTimer = Timer(const Duration(milliseconds: 800), () {
+            if (value.isEmpty) {
+              getAllUsers();
+            } else {
+              getUserByName(value);
+            }
+          });
         },
       ),
     );
@@ -79,8 +86,12 @@ class _UserGithubListState extends State<UserGithubList> {
       setState(() {
         loading = true;
       });
-      final response = await http.get(Uri.parse(baseUrl),
-          headers: {'accept': 'application/vnd.github+json'});
+      final response = await http.get(Uri.parse(baseUrl), headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization':
+            'Bearer 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',
+        "X-GitHub-Api-Version": "2022-11-28",
+      });
 
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
@@ -118,7 +129,8 @@ class _UserGithubListState extends State<UserGithubList> {
       });
       final response = await http.get(Uri.parse('$baseUrl/$name'), headers: {
         'Accept': 'application/vnd.github+json',
-        'Authorization': 'Bearer SEU_TOKEN_AQUI',
+        'Authorization':
+            'Bearer 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',
         "X-GitHub-Api-Version": "2022-11-28",
       });
 
