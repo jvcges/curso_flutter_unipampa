@@ -1,0 +1,29 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import '../../../{{repositoryPathInterface}}/{{repositoryNameFileInterface.snakeCase}}.dart';
+import '../../datasources/{{datasourceNameFileInterface.snakeCase}}.dart';
+import 'package:curso_flutter_unipampa/app/domain/models/exceptions/custom_exception.dart';
+import 'package:curso_flutter_unipampa/app/domain/models/exceptions/generic_exception.dart';
+
+final ${{repositoryNameClass.pascalCase}} = BindInject(
+  (i) => {{repositoryNameClass.pascalCase}}(i.get()),
+  isSingleton: true,
+  isLazy: true,
+);
+
+class {{repositoryNameClass.pascalCase}} implements {{repositoryNameClassInterface.pascalCase}} {
+  final {{datasourceNameClassInterface.pascalCase}} _{{datasourceNameClassInterface.camelCase}};
+
+  {{repositoryNameClass.pascalCase}}(this._{{datasourceNameClassInterface.camelCase}});
+
+  @override
+  Future<void> call() async {
+    try {
+      return await _{{datasourceNameClassInterface.camelCase}}();
+    } on CustomException catch (e) {
+      rethrow;
+    } catch (e) {
+      throw GenericException();
+    }
+  }
+}
+  
