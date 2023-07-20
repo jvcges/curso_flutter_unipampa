@@ -8,6 +8,9 @@ class UserGithubDto {
   final String? name;
   final String? bio;
   final String? location;
+  final int? publicRepos;
+  final int? followers;
+  final int? following;
   UserGithubDto({
     this.login,
     this.id,
@@ -16,6 +19,9 @@ class UserGithubDto {
     this.name,
     this.bio,
     this.location,
+    this.publicRepos,
+    this.followers,
+    this.following,
   });
 
   UserGithubDto copyWith({
@@ -26,6 +32,9 @@ class UserGithubDto {
     String? name,
     String? bio,
     String? location,
+    int? publicRepos,
+    int? followers,
+    int? following,
   }) {
     return UserGithubDto(
       login: login ?? this.login,
@@ -35,6 +44,9 @@ class UserGithubDto {
       name: name ?? this.name,
       bio: bio ?? this.bio,
       location: location ?? this.location,
+      publicRepos: publicRepos ?? this.publicRepos,
+      followers: followers ?? this.followers,
+      following: following ?? this.following,
     );
   }
 
@@ -62,6 +74,15 @@ class UserGithubDto {
     if (location != null) {
       result.addAll({'location': location});
     }
+    if (publicRepos != null) {
+      result.addAll({'public_repos': publicRepos});
+    }
+    if (followers != null) {
+      result.addAll({'followers': followers});
+    }
+    if (following != null) {
+      result.addAll({'following': following});
+    }
 
     return result;
   }
@@ -69,12 +90,15 @@ class UserGithubDto {
   factory UserGithubDto.fromMap(Map<String, dynamic> map) {
     return UserGithubDto(
       login: map['login'],
-      id: map['id']?.toString(),
+      id: map['id'].toString(),
       avatarUrl: map['avatar_url'],
       email: map['email'],
       name: map['name'],
       bio: map['bio'],
       location: map['location'],
+      publicRepos: map['public_repos']?.toInt(),
+      followers: map['followers']?.toInt(),
+      following: map['following']?.toInt(),
     );
   }
 
@@ -85,6 +109,6 @@ class UserGithubDto {
 
   @override
   String toString() {
-    return 'UserGithubDto(login: $login, id: $id, avatarUrl: $avatarUrl, email: $email, name: $name, bio: $bio, location: $location)';
+    return 'UserGithubDto(login: $login, id: $id, avatarUrl: $avatarUrl, email: $email, name: $name, bio: $bio, location: $location, publicRepos: $publicRepos, followers: $followers, following: $following)';
   }
 }

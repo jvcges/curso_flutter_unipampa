@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:curso_flutter_unipampa/app/presentation/components/user_github_card.dart';
 import 'package:curso_flutter_unipampa/app/presentation/pages/user_github/user_github_page_controller.dart';
+import 'package:curso_flutter_unipampa/core/routes/app_routes.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -40,7 +41,10 @@ class _UserGithubListState extends State<UserGithubList> {
                   ? ListView.builder(
                       itemCount: _controller.userList.length,
                       itemBuilder: (context, index) => UserGithubCard(
-                          userDto: _controller.userList.elementAt(index)),
+                        userDto: _controller.userList.elementAt(index),
+                        onTap: () => AppRouters.goToUserDetailsPage(
+                            user: _controller.userList.elementAt(index)),
+                      ),
                     )
                   : const Center(
                       child: CircularProgressIndicator(),

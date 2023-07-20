@@ -50,6 +50,15 @@ mixin _$UserGithubPageController on _UserGithubPageControllerBase, Store {
     return _$getAllUsersAsyncAction.run(() => super.getAllUsers());
   }
 
+  late final _$getUserByNameAsyncAction = AsyncAction(
+      '_UserGithubPageControllerBase.getUserByName',
+      context: context);
+
+  @override
+  Future<ResponsePresentation> getUserByName(String name) {
+    return _$getUserByNameAsyncAction.run(() => super.getUserByName(name));
+  }
+
   @override
   String toString() {
     return '''
